@@ -1,2 +1,42 @@
-[![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-2e0aaae1b6195c2367325f4f02e2d04e9abb55f0b24a779b69b11b9e10269abc.svg)](https://classroom.github.com/online_ide?assignment_repo_id=24001959&assignment_repo_type=AssignmentRepo)
-# Merchant-order-desk-and-catalogue-engine
+# PayNest Capstone 1 
+
+
+It demonstrates:
+- Creating products
+- Creating a customer
+- Creating an order
+- Adding order items with quantities
+- Calculating line subtotals
+- Calculating the grand total
+- Printing an invoice summary
+
+## How to run the tests
+
+In the terminal, run:
+
+
+mvn clean test
+
+
+## How to run the demo
+
+In the terminal, run:
+
+mvn exec:java
+
+
+The program prints a PayNest invoice showing:
+- Order ID
+- Customer name and email
+- Each product
+- Quantity
+- Subtotal
+- Total amount
+
+## Notes
+
+Quantities must be greater than zero. Invalid quantities are rejected using `IllegalArgumentException`.
+
+Order totals are calculated from the order items, where each line subtotal is:
+
+product price * quantity
