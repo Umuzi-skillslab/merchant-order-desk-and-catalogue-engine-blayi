@@ -24,6 +24,24 @@ In the terminal, run:
 
 mvn exec:java
 
+### Expected Output
+
+============================
+PAYNEST INVOICE
+================================
+Order ID: 5001
+Customer: Siya Blayi
+Email :siyasanga.blayi@umuzi.org
+----------------------------------
+Product   Qty       Subtotal
+----------------------------------
+Laptop    1          R12000
+Wireless Mouse     2  R700
+---------------------------------
+Total: R12700
+================================
+
+
 
 The program prints a PayNest invoice showing:
 - Order ID
