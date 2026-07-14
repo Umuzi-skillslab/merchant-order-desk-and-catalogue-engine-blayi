@@ -10,7 +10,7 @@ public class PayNestApplication {
         Product laptop = new Product(101, "Laptop", 12000.00);
         Product mouse = new Product(102, "Wireless Mouse", 350.00);
 
-        Customer customer = new Customer(1, "Mia Kaluya", "mia@example.co.za");
+        Customer customer = new Customer(1, "Siya Blayi", "siyasanga.blayi@umuzi.org");
 
         Order order = new Order(5001, customer);
         order.addItem(laptop, 1);
