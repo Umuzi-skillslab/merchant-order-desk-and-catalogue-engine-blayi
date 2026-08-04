@@ -23,4 +23,9 @@ class OrderItemTest {
 
         assertThrows(IllegalArgumentException.class, () -> new OrderItem(product, 0));
     }
+
+        @Test
+    void constructorRejectsNullProduct() {
+        assertThrows(IllegalArgumentException.class, () -> new OrderItem(null, 1));
+    }
 }
