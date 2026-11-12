@@ -4,9 +4,12 @@ public class EftPayment implements PaymentMethod {
 
     @Override
     public boolean processPayment(double amount) {
-        System.out.println("Processing EFT payment for R"
-                + String.format("%.0f", amount));
+        if (!Double.isFinite(amount) || amount <= 0) {
+            System.out.println("EFT payment requires a valid positive amount.");
+            return false;
+        }
 
+        System.out.printf("Processing EFT payment for R%.2f%n", amount);
         return true;
     }
 

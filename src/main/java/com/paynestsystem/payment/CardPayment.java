@@ -4,9 +4,12 @@ public class CardPayment implements PaymentMethod {
 
     @Override
     public boolean processPayment(double amount) {
-        System.out.println("Processing card payment for R"
-                + String.format("%.0f", amount));
+        if (!Double.isFinite(amount) || amount <= 0) {
+            System.out.println("Card payment requires a valid positive amount.");
+            return false;
+        }
 
+        System.out.printf("Processing card payment for R%.2f%n", amount);
         return true;
     }
 
