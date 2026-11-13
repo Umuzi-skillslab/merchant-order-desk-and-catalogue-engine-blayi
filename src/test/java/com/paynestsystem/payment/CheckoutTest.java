@@ -41,14 +41,17 @@ class CheckoutTest {
     void checkoutWorksWithWallet() {
         Order order = createOrder();
 
-        assertTrue(order.checkout(new WalletPayment()));
+        assertTrue(order.checkout(new WalletPayment(15000.00)));
     }
 
     @Test
     void paymentTypesHaveCorrectLabels() {
         assertEquals("CARD", new CardPayment().getPaymentType());
         assertEquals("EFT", new EftPayment().getPaymentType());
-        assertEquals("WALLET", new WalletPayment().getPaymentType());
+        assertEquals(
+                "WALLET",
+                new WalletPayment(15000.00).getPaymentType()
+        );
     }
 
     @Test
@@ -56,7 +59,7 @@ class CheckoutTest {
         PaymentMethod[] methods = {
                 new CardPayment(),
                 new EftPayment(),
-                new WalletPayment()
+                new WalletPayment(15000.00)
         };
 
         for (PaymentMethod method : methods) {
@@ -97,7 +100,11 @@ class CheckoutTest {
 
         assertTrue(order.checkout(payment));
         assertEquals(12700.00, payment.receivedAmount, 0.001);
-        assertEquals(order.calculateTotal(), payment.receivedAmount, 0.001);
+        assertEquals(
+                order.calculateTotal(),
+                payment.receivedAmount,
+                0.001
+        );
         assertEquals(1, payment.calls);
     }
 
@@ -106,6 +113,32 @@ class CheckoutTest {
         Order order = createOrder();
 
         assertFalse(order.checkout(new DeclinedPayment()));
+    }
+
+    @Test
+    void walletDeclinesOrderWhenBalanceIsTooLow() {
+        Customer customer = new Customer(
+                1,
+                "Test Customer",
+                "customer@example.com"
+        );
+
+        Order order = new Order(5002, customer);
+        order.addItem(new Product(103, "Keyboard", 600.00), 1);
+
+        WalletPayment wallet = new WalletPayment(500.00);
+
+        assertFalse(order.checkout(wallet));
+        assertEquals(500.00, wallet.getBalance(), 0.001);
+    }
+
+    @Test
+    void successfulWalletPaymentReducesBalance() {
+        Order order = createOrder();
+        WalletPayment wallet = new WalletPayment(15000.00);
+
+        assertTrue(order.checkout(wallet));
+        assertEquals(2300.00, wallet.getBalance(), 0.001);
     }
 
     private static class RecordingPayment implements PaymentMethod {

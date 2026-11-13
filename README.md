@@ -69,7 +69,11 @@ calculation do not need to change.
 - Quantities must be greater than zero.
 - The order item list cannot be changed directly by outside code.
 - Payment amounts must be finite and greater than zero.
-- The supplied payment methods simulate success for valid amounts.
+- Card and EFT simulate success for finite positive amounts.
+- Wallet payments also require enough available balance.
+- Successful wallet payments reduce the balance.
+- Declined wallet payments leave the balance unchanged.
+- Wallet starting balances must be finite and non-negative.
 - Empty orders cannot complete payment.
 - A null payment method causes IllegalArgumentException.
 - Prices and totals use double, matching the starter contract.
